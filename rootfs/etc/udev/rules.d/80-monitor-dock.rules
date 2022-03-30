@@ -1,0 +1,1 @@
+ACTION=="change", SUBSYSTEM=="drm", RUN+="/usr/share/bin/vga-hotplug.sh"
