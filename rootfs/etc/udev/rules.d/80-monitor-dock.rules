@@ -1,1 +1,1 @@
-ACTION=="change", SUBSYSTEM=="drm", RUN+="/usr/share/bin/vga-hotplug.sh"
+ACTION=="change", SUBSYSTEM=="drm", RUN+="/usr/bin/monitor-hotplug.sh"
