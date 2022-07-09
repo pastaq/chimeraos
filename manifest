@@ -170,10 +170,10 @@ export AUR_PACKAGES="\
 	xpad-noone-dkms \
 	xpadneo-dkms \
 	bcm20702a1-firmware \
-	python-evdev \
-	aya-neo-fixes-git \
 	nintendo-udev \
 	steam-removable-media-git \
+	rz608-fix-git \
+	handygccs-git \
 "
 
 export SERVICES="\
@@ -188,7 +188,7 @@ export SERVICES="\
 	haveged \
 	systemd-timesyncd \
 	sshd \
-	neo-controller \
+	handycon \
 "
 
 export USER_SERVICES="\
