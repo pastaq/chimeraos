@@ -165,6 +165,7 @@ export AUR_PACKAGES="\
 	steam-removable-media-git \
 	rz608-fix-git \
 	handygccs-git \
+	crankshaft \
 "
 
 export SERVICES="\
@@ -188,6 +189,7 @@ export USER_SERVICES="\
 	steam-patch.service \
 	gamemoded.service \
 	sxhkd.service \
+	crankshaft.service \
 "
 
 export FILES_TO_DELETE="\

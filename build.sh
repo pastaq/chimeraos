@@ -146,6 +146,32 @@ echo "${USERNAME} ALL=(ALL) NOPASSWD: /usr/bin/chimera-session-use-gamescope
 ${USERNAME} ALL=(ALL) NOPASSWD: /usr/bin/chimera-session-use-lightdm
 ${USERNAME} ALL=(ALL) NOPASSWD: /usr/lib/media-support/format-media.sh*
 " > /etc/sudoers.d/chimera
+echo "${USERNAME} ALL=(ALL) NOPASSWD: /home/${USERNAME}/.var/app/space.crankshaft.Crankshaft/data/crankshaft/plugins/HandyPT/bin/ryzenadj*
+${USERNAME} ALL=(ALL) NOPASSWD: /home/${USERNAME}/.var/app/space.crankshaft.Crankshaft/data/crankshaft/plugins/HandyPT/bin/powertools.sh*
+${USERNAME} ALL=(ALL) NOPASSWD: /usr/bin/chmod a+w /sys/class/drm/card0/device/pp_od_clk_voltage
+${USERNAME} ALL=(ALL) NOPASSWD: /usr/bin/chmod a+w /sys/class/drm/card0/device/power_dpm_force_performance_level
+${USERNAME} ALL=(ALL) NOPASSWD: /usr/bin/tee /sys/class/drm/card0/device/pp_od_clk_voltage*
+${USERNAME} ALL=(ALL) NOPASSWD: /usr/bin/tee /sys/class/drm/card0/device/power_dpm_force_performance_level*
+" > /etc/sudoers.d/handypt_sudo
+
+# configure Crankshaft
+CRANKSHAFT_DIR="/home/${USERNAME}/.var/app/space.crankshaft.Crankshaft/data/crankshaft/"
+echo "InstalledAutostart = true
+[plugins]
+  [plugins.HandyPT]
+    enabled = true
+" > ${CRANKSHAFT_DIR}config.toml
+
+HPT_REPO="ShadowBlip/HandyPT"
+HPT_VERS=$(curl -s "https://api.github.com/repos/${HPT_REPO}/releases/latest" \
+| grep "tag_name" \
+| awk '{print substr($2, 2, length($2)-3)}') \
+;
+FILENAME="handypt-${HPT_VERS}.tar.gz"
+EXTRACT_DIR="${CRANKSHAFT_DIR}/plugins/"
+tar -xvf $(curl -sLJOw ${FILENAME} "https://github.com/${HPT_REPO}/releases/download/${HPT_VERS}/${FILENAME}") -C $EXTRACT_DIR
+rm ${FILENAME}
+
 
 # set the default editor, so visudo works
 echo "export EDITOR=/usr/bin/vim" >> /etc/bash.bashrc
