@@ -205,6 +205,14 @@ export FILES_TO_DELETE="\
 	/usr/share/libretro/autoconfig/udev/Sony-PlayStation3-DualShock3-Controller-Bluetooth.cfg \
 "
 
+export CRANKSHAFT_DIR="/home/${USERNAME}/.var/app/space.crankshaft.Crankshaft/data/crankshaft"
+export HPT_REPO="ShadowBlip/HandyPT"
+export HPT_VERS=$(curl -s "https://api.github.com/repos/${HPT_REPO}/releases/latest" \
+| grep "tag_name" \
+| awk '{print substr($2, 2, length($2)-3)}') \
+;
+export FILENAME="handypt-${HPT_VERS}.tar.gz"  
+
 postinstallhook() {
 	# disable retroarch menu in joypad configs
 	find /usr/share/libretro/autoconfig -type f -name '*.cfg' | xargs -d '\n' sed -i '/input_menu_toggle_btn/d'

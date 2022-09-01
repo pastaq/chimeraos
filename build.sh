@@ -155,21 +155,15 @@ ${USERNAME} ALL=(ALL) NOPASSWD: /usr/bin/tee /sys/class/drm/card0/device/power_d
 " > /etc/sudoers.d/handypt_sudo
 
 # configure Crankshaft
-CRANKSHAFT_DIR="/home/${USERNAME}/.var/app/space.crankshaft.Crankshaft/data/crankshaft/"
+mkdir -p "${CRANKSHAFT_DIR}/plugins"
 echo "InstalledAutostart = true
 [plugins]
   [plugins.HandyPT]
     enabled = true
-" > ${CRANKSHAFT_DIR}config.toml
+" > "${CRANKSHAFT_DIR}/config.toml"
 
-HPT_REPO="ShadowBlip/HandyPT"
-HPT_VERS=$(curl -s "https://api.github.com/repos/${HPT_REPO}/releases/latest" \
-| grep "tag_name" \
-| awk '{print substr($2, 2, length($2)-3)}') \
-;
-FILENAME="handypt-${HPT_VERS}.tar.gz"
-EXTRACT_DIR="${CRANKSHAFT_DIR}/plugins/"
-tar -xvf $(curl -sLJOw ${FILENAME} "https://github.com/${HPT_REPO}/releases/download/${HPT_VERS}/${FILENAME}") -C $EXTRACT_DIR
+curl -sLJOw ${FILENAME} "https://github.com/${HPT_REPO}/releases/download/${HPT_VERS}/${FILENAME}"
+tar -xvf ${FILENAME} -C ${CRANKSHAFT_DIR}
 rm ${FILENAME}
 
 
