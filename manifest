@@ -205,7 +205,7 @@ export FILES_TO_DELETE="\
 	/usr/share/libretro/autoconfig/udev/Sony-PlayStation3-DualShock3-Controller-Bluetooth.cfg \
 "
 
-export CRANKSHAFT_DIR="/home/${USERNAME}/.var/app/space.crankshaft.Crankshaft/data/crankshaft"
+export CRANKSHAFT_DIR="/home/${USERNAME}/.local/share/crankshaft"
 export HPT_REPO="ShadowBlip/HandyPT"
 export HPT_VERS=$(curl -s "https://api.github.com/repos/${HPT_REPO}/releases/latest" \
 | grep "tag_name" \

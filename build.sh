@@ -146,26 +146,13 @@ echo "${USERNAME} ALL=(ALL) NOPASSWD: /usr/bin/chimera-session-use-gamescope
 ${USERNAME} ALL=(ALL) NOPASSWD: /usr/bin/chimera-session-use-lightdm
 ${USERNAME} ALL=(ALL) NOPASSWD: /usr/lib/media-support/format-media.sh*
 " > /etc/sudoers.d/chimera
-echo "${USERNAME} ALL=(ALL) NOPASSWD: /home/${USERNAME}/.var/app/space.crankshaft.Crankshaft/data/crankshaft/plugins/HandyPT/bin/ryzenadj*
-${USERNAME} ALL=(ALL) NOPASSWD: /home/${USERNAME}/.var/app/space.crankshaft.Crankshaft/data/crankshaft/plugins/HandyPT/bin/powertools.sh*
+echo "${USERNAME} ALL=(ALL) NOPASSWD: /home/${USERNAME}/.local/share/crankshaft/plugins/HandyPT/bin/ryzenadj*
+${USERNAME} ALL=(ALL) NOPASSWD: /home/${USERNAME}/.local/share/crankshaft/plugins/HandyPT/bin/powertools.sh*
 ${USERNAME} ALL=(ALL) NOPASSWD: /usr/bin/chmod a+w /sys/class/drm/card0/device/pp_od_clk_voltage
 ${USERNAME} ALL=(ALL) NOPASSWD: /usr/bin/chmod a+w /sys/class/drm/card0/device/power_dpm_force_performance_level
 ${USERNAME} ALL=(ALL) NOPASSWD: /usr/bin/tee /sys/class/drm/card0/device/pp_od_clk_voltage*
 ${USERNAME} ALL=(ALL) NOPASSWD: /usr/bin/tee /sys/class/drm/card0/device/power_dpm_force_performance_level*
 " > /etc/sudoers.d/handypt_sudo
-
-# configure Crankshaft
-mkdir -p "${CRANKSHAFT_DIR}/plugins"
-echo "InstalledAutostart = true
-[plugins]
-  [plugins.HandyPT]
-    enabled = true
-" > "${CRANKSHAFT_DIR}/config.toml"
-
-curl -sLJOw ${FILENAME} "https://github.com/${HPT_REPO}/releases/download/${HPT_VERS}/${FILENAME}"
-tar -xvf ${FILENAME} -C ${CRANKSHAFT_DIR}
-rm ${FILENAME}
-
 
 # set the default editor, so visudo works
 echo "export EDITOR=/usr/bin/vim" >> /etc/bash.bashrc
@@ -249,6 +236,19 @@ rm -rf ${FILES_TO_DELETE}
 mkdir /home
 mkdir /var
 mkdir /frzr_root
+
+# configure Crankshaft
+mkdir -p "${CRANKSHAFT_DIR}/plugins"
+echo "InstalledAutostart = true
+[plugins]
+  [plugins.HandyPT]
+    enabled = true
+" > "${CRANKSHAFT_DIR}/config.toml"
+
+curl -sLJOw ${FILENAME} "https://github.com/${HPT_REPO}/releases/download/${HPT_VERS}/${FILENAME}"
+tar -xvf ${FILENAME} -C ${CRANKSHAFT_DIR}
+rm ${FILENAME}
+
 EOF
 
 # copy files into chroot again
